@@ -7,7 +7,14 @@ window.onload = async () => {
             console.log(stream);
             $(".content").each((i, col) => {
                 const video = document.createElement('video');
-                video.src = window.URL.createObjectURL(stream);
+
+                // video.src = (window.URL || URL).createObjectURL(stream);
+                try {
+                  video.srcObject = stream;
+                } catch (error) {
+                  video.src = window.URL.createObjectURL(stream);
+                }
+                
                 const ratio = 640 / 480;
                 video.play();
                 video.style.width = "auto";
